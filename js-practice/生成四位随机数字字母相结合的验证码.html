@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生成四位随机数字字母相结合的验证码</title>
+    <script>
+        window.onload = function() {
+            var arr_code = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
+            var res = '';
+            for (var i = 0; i < 4; i++) {
+                var idx = parseInt(Math.random() * arr_code.length);
+                res += arr_code[idx];
+            }
+            var vcode = document.getElementById('vcode');
+            var showCode = document.getElementById('showCode');
+            var btn = document.getElementById('btn');
+            showCode.innerHTML = res.toUpperCase();
+            btn.onclick = function() {
+                var val = vcode.value;
+                if (val.toUpperCase() != res.toUpperCase()) {
+                    alert('验证不成功');
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="vcode"><span id="showCode"></span>
+    <div><button id="btn">验证<button></div>
+</body>
+
+</html>

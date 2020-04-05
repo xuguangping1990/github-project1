@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: #f00;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var box = document.querySelector('.box');
+            //匀速运动
+            var speed = 5;
+            //每隔一定时间改变一次left属性
+            var timer = setInterval(() => {
+                //先获取原来的left值
+                // var left = getComputedStyle(box).left;
+                //提取单位
+                // var reg = /[a-z]+$/;
+                // var unit = left.match(reg);
+                // var unit = unit ? unit[0] : '';
+                // console.log(unit)
+                //提取值
+                // var left = parseInt(left);
+                // console.log(left)
+                var left = box.offsetLeft;
+                left += speed;
+                if (left >= window.innerWidth - box.offsetWidth) {
+                    left = window.innerWidth - box.offsetWidth;
+                    clearInterval(timer);
+                }
+                box.style.left = left + 'px';
+            }, 20)
+        })
+    </script>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: #f00;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var box = document.querySelector('.box');
+            var speed = 5;
+            var timer = setInterval(() => {
+                var left = box.offsetLeft;
+                left += speed++;
+                if (left >= window.innerWidth - box.offsetWidth) {
+                    left = window.innerWidth - box.offsetWidth;
+                    clearInterval(timer);
+                }
+                box.style.left = left + 'px';
+            }, 20)
+        })
+    </script>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+
+</html>

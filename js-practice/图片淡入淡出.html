@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var girl = document.querySelector('.girl');
+            //默认显示半透明效果
+            girl.style.opacity = 0.5;
+            //移入
+            var overTimer;
+            girl.onmouseover = () => {
+                    clearInterval(overTimer);
+                    var speed = 0.02;
+                    overTimer = setInterval(() => {
+                        var opacity = Number(getComputedStyle(girl).opacity);
+                        opacity += speed;
+                        if (opacity >= 1) {
+                            opacity = 1;
+                            clearInterval(overTimer);
+                        }
+                        girl.style.opacity = opacity;
+                    }, 20);
+                }
+                //移出
+            var outTimer;
+            girl.onmouseout = () => {
+                clearInterval(outTimer);
+                var speed = 0.02;
+                outTimer = setInterval(() => {
+                    var opacity = Number(getComputedStyle(girl).opacity);
+                    opacity -= speed;
+                    if (opacity <= 0.5) {
+                        opacity = 0.5;
+                        clearInterval(outTimer);
+                    }
+                    girl.style.opacity = opacity;
+                }, 20);
+            }
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <img src="img/zb.jpg" class="girl">
+</body>
+
+</html>

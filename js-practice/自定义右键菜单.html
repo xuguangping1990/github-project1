@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义右键菜单</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .contextMenu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 2px;
+            width: 220px;
+            border: 1px solid #ddd;
+        }
+        
+        .contextMenu li {
+            position: relative;
+            padding-left: 10px;
+            border-bottom: 1px dotted #ddd;
+            line-height: 2.2;
+        }
+        
+        .contextMenu li:hover {
+            background-color: #efefef;
+        }
+        
+        .contextMenu li:last-child {
+            border: none;
+        }
+        
+        .contextMenu li span {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            color: #999;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var contextMenu = document.getElementsByClassName('contextMenu')[0];
+            // document.onmouseup = function(e) {
+            //     e = e || window.event;
+            //     if (e.button === 2) {
+            //         contextMenu.style.left = e.clientX + 'px';
+            //         contextMenu.style.top = e.clientY + 'px';
+            //         contextMenu.style.display = 'block';
+            //     }
+            // }
+
+            document.oncontextmenu = function(e) {
+                e = e || window.event;
+                if (e.button === 2) {
+                    contextMenu.style.left = e.clientX + 'px';
+                    contextMenu.style.top = e.clientY + 'px';
+                    contextMenu.style.display = 'block';
+                    e.preventDefault() ? e.preventDefault() : e.returnValue = false;
+                }
+            }
+
+            document.onclick = function() {
+                contextMenu.style.display = 'none';
+            }
+
+            contextMenu.onclick = function() {
+                e = e || window.event;
+                e.stopPropagation ? e.stopPropagation : e.cancelBubble = true;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="contextMenu">
+        <ul>
+            <li>复制<span>Ctrl+C</span></li>
+            <li>粘贴<span>Ctrl+V</span></li>
+            <li>剪切<span>Ctrl+X</span></li>
+            <li>删除<span>Del</span></li>
+            <li>保存<span>Ctrl+S</span></li>
+        </ul>
+    </div>
+</body>
+
+</html>

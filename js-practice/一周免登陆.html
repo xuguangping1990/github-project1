@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>一周免登陆</title>
+    <style>
+        .welcome {
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var username = document.getElementById('username');
+            var password = document.getElementById('password');
+            var btnLogin = document.getElementById('btnLogin');
+            var mdl = document.getElementById('mdl');
+            var welcome = document.getElementsByClassName('welcome')[0];
+            var form = document.getElementsByClassName('form')[0];
+
+            btnLogin.onclick = function() {
+                var _username = username.value;
+                var _password = password.value;
+                //如果勾选免登陆，则保存用户和密码到cookie
+                if (mdl.checked) {
+                    var now = new Date();
+                    now.setDate(now.getDate() + 7);
+                    document.cookie = 'username=' + _username + ';expires=' + now.toString(); //toString()把布尔值转换成字符串
+                    document.cookie = 'password=' + _password + ';expires=' + now.toString();
+                    console.log(document.cookie)
+                }
+                welcome.innerHTML = '您好' + _username + ',欢迎登陆国家信息系统<button id="logout">退出</button>';
+                welcome.style.display = 'block';
+                form.style.display = 'none';
+            }
+
+            //查找cookie,判断是否存在用户和密码
+            //获取cookie
+            var cookies = document.cookie.split('; ');
+            console.log(cookies)
+                //['username=xxx','password=yyy']
+            cookies.forEach(function(item) {
+                    var arr = item.split('=');
+                    console.log(arr)
+                    if (arr[0] === 'username') {
+                        welcome.style.display = 'block';
+                        form.style.display = 'none';
+                        welcome.innerHTML = '您好' + arr[1] + ',欢迎登陆国家信息系统<button id="logout">退出</button>';
+                    }
+                })
+                //退出
+            welcome.onclick = function(e) {
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                if (target.id = 'logout') {
+                    var now = new Date();
+                    now.setDate(now.getDate() - 100);
+                    //删除cookie
+                    document.cookie = 'username=xx;expires=' + now.toString();
+                    document.cookie = 'password=xx;expires=' + now.toString();
+                    //手动刷新页面
+                    //window.location.reload();
+                    welcome.style.display = 'none';
+                    form.style.display = 'block';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="form">
+        <div><label for="username">用户名</label>
+            <input type="text" id="username" name="username"></div>
+        <div><label for="password">密码</label>
+            <input type="text" id="password" name="password"></div>
+        <div><input type="checkbox" id="mdl">一周内免登陆</div>
+        <button id="btnLogin">登陆</button>
+    </div>
+    <div class="welcome">
+
+    </div>
+</body>
+
+</html>

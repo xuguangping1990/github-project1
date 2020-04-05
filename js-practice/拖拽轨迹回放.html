@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽轨迹回放</title>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+        }
+        
+        body,
+        div,
+        h2,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            color: #fff;
+            background: #000;
+            font: 12px/2 Arial;
+        }
+        
+        p {
+            padding: 0 10px;
+            margin-top: 10px;
+        }
+        
+        span {
+            color: #ff0;
+            padding-left: 5px;
+        }
+        
+        #box {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            background: #333;
+            border: 2px solid #ccc;
+        }
+        
+        #box h2 {
+            height: 25px;
+            cursor: move;
+            background: #222;
+            border-bottom: 2px solid #ccc;
+            text-align: right;
+            padding: 0 10px;
+        }
+        
+        #box h2 a {
+            color: #fff;
+            font: 12px/25px Arial;
+            text-decoration: none;
+            outline: none;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            //获取元素
+            var box = document.getElementById('box');
+            var title = box.children[0];
+            var btnBack = title.firstElementChild;
+            var isDrag = box.children[1].lastElementChild;
+            var ele_top = box.children[2].lastElementChild;
+            var ele_left = box.children[3].lastElementChild;
+
+            //记录box移动过的坐标
+            var arr_pos = [];
+
+            //拖拽
+            title.onmousedown = function(e) {
+                e = e || window.event;
+                //记录按下时的位置
+                arr_pos = [{
+                    left: box.offsetLeft,
+                    top: box.offsetTop
+                }];
+                var ox = e.clientX - box.offsetLeft;
+                var oy = e.clientY - box.offsetLeft;
+                isDrag.innerText = true;
+                document.onmousemove = function(evt) {
+                    evt = evt || window.evt;
+                    var left = evt.clientX - ox;
+                    var top = evt.clientY - oy;
+                    box.style.left = left + 'px';
+                    box.style.top = top + 'px';
+                    //添加到数组
+                    arr_pos.push({
+                        left: left,
+                        top: top
+                    });
+                    ele_top.innerText = top;
+                    ele_left.innerText = left;
+                    evt.preventDefault();
+                }
+            }
+
+            //鼠标弹开
+            document.onmouseup = function() {
+                //清空mousemove事件
+                document.onmousemove = null;
+                isDrag.innerText = false;
+            }
+
+            //轨迹回放
+            var timer;
+            btnBack.onmousedown = function(e) {
+                clearInterval(timer);
+                e = e || window.event;
+                e.stopPropagation();
+                var i = arr_pos.length - 1;
+                timer = setInterval(function() {
+                    i--;
+                    box.style.left = arr_pos[i].left + 'px';
+                    box.style.top = arr_pos[i].top + 'px';
+                    ele_top.innerText = arr_pos[i].top;
+                    ele_left.innerText = arr_pos[i].left;
+
+                    if (i === 0) {
+                        clearInterval(timer);
+                        //清空数组
+                        arr_pos = [];
+                    }
+                }, 20)
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="box">
+        <h2><a href="#">点击回放拖动轨迹</a></h2>
+        <p><strong>Drag:</strong><span>false</span></p>
+        <p><strong>offsetTop:</strong><span>231</span></p>
+        <p><strong>offsetLeft:</strong><span>533</span></p>
+    </div>
+</body>
+
+</html>

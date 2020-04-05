@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>封装一个显示隐藏页面元素的函数</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <button id="showBtn">显示</button>
+    <button id="hideBtn">隐藏</button>
+    <script>
+        var box = document.getElementById('box')
+        var showBtn = document.getElementById('showBtn')
+        var hideBtn = document.getElementById('hideBtn')
+        showBtn.onclick = function() {
+            box.style.display = 'block';
+        }
+        hideBtn.onclick = function() {
+            box.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

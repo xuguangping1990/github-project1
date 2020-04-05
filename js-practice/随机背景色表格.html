@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机背景色表格</title>
+    <style>
+        table {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+        }
+        
+        tr.even {
+            background-color: #efefef;
+        }
+    </style>
+    <script src="./common.js"></script>
+    <script>
+        window.onload = function() {
+            var datalist = document.getElementsByClassName('datalist')[0];
+            var row = 10;
+            var col = 6;
+            var table = document.createElement('table');
+            for (var i = 0; i < row; i++) {
+                var tr = table.insertRow(i);
+                tr.style.backgroundColor = randomColor();
+                for (var j = 0; j < col; j++) {
+                    var td = tr.insertCell(j);
+                    td.innerText = '单元格' + (i + 1) + (j + 1);
+                }
+                //添加行号
+                tr.insertCell(0).innerText = i + 1;
+                //删除按钮
+                tr.insertCell(j + 1).innerHTML = '<button class="btnDel">&times;</button>';
+            }
+            datalist.appendChild(table);
+
+            var btnDels = datalist.getElementsByClassName('btnDel');
+            for (var i = 0; i < btnDels.length; i++) {
+                btnDels[i].onclick = function() {
+                    var currentTr = this.parentNode.parentNode;
+                    var idx = currentTr.rowIndex;
+                    table.deleteRow(idx);
+
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="datalist"></div>
+</body>
+
+</html>

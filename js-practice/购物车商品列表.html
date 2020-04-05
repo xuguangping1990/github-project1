@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车商品列表</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .goodslist ul {
+            overflow: hidden;
+        }
+        
+        .goodslist li {
+            float: left;
+            width: 220px;
+            height: 420px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+        }
+        
+        .goodslist li:hover {
+            background-color: #efefef;
+        }
+        
+        .goodslist .price span {
+            color: #f00;
+            font-weight: bold;
+        }
+        
+        .goodslist .price span::before {
+            content: "￥";
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // json字符串
+            var datalist = [{
+                    "imgurl": "img/shirt_1.jpg",
+                    "title": "Bottega Veneta/葆蝶家 女士牛皮粉色钱包 114076 V0041 6811",
+                    "price": 5186,
+                    "sale": 5000,
+                    "guid": "g001"
+                },
+
+                {
+                    "imgurl": "img/shirt_2.jpg",
+                    "title": "Bottega Veneta/葆蝶家 时尚拼色小羊皮手提包",
+                    "price": 21128,
+                    "sale": 1128,
+                    "guid": "g002"
+                },
+
+                {
+                    "imgurl": "img/shirt_3.jpg",
+                    "title": "Bottega Veneta/葆蝶家 BV男包手拿包羊皮 224053 V4651 1000",
+                    "price": 10461,
+                    "sale": 998,
+                    "guid": "g003"
+                },
+
+                {
+                    "imgurl": "img/shirt_4.jpg",
+                    "title": "Bottega Veneta/葆蝶家手提包",
+                    "price": 15278,
+                    "sale": 15277,
+                    "guid": "g004"
+                },
+
+                {
+                    "imgurl": "img/shirt_1.jpg",
+                    "title": "[16秋冬]Bottega Veneta/葆蝶家 女士 羊皮 编织纹理 单肩包 DU",
+                    "price": 23644,
+                    "sale": 2998,
+                    "guid": "g005"
+                },
+
+                {
+                    "imgurl": "img/shirt_2.jpg",
+                    "title": "Bottega Veneta/葆蝶家 女士黑色羊皮斜挎包 354761 V0016 8175",
+                    "price": 23254,
+                    "sale": 666,
+                    "guid": "g006"
+                },
+
+                {
+                    "imgurl": "img/shirt_3.jpg",
+                    "title": "Bottega Veneta/葆蝶家 经典编织设计浅蓝色羊皮女士长款钱包#302357 V001N 4906",
+                    "price": 5556,
+                    "sale": 1998,
+                    "guid": "g007"
+                },
+
+                {
+                    "imgurl": "img/shirt_3.jpg",
+                    "title": "Bottega Veneta/葆蝶家 女士咖色羊皮短款钱包# 335531 V4651 2314",
+                    "price": 2951,
+                    "sale": 2951,
+                    "guid": "g008"
+                },
+
+                {
+                    "imgurl": "img/shirt_4.jpg",
+                    "title": "Bottega Veneta/葆蝶家 女士牛皮黑色手拿包 407255 V001N 1000",
+                    "price": 7636,
+                    "sale": 76998,
+                    "guid": "g009"
+                },
+
+                {
+                    "imgurl": "img/shirt_1.jpg",
+                    "title": "Bottega Veneta/葆蝶家 女士酒红色编织小羊皮单肩包 245354 V0016 2289",
+                    "price": 12076,
+                    "sale": 2998,
+                    "guid": "g010"
+                }
+            ];
+
+            var goodslist = document.getElementsByClassName('goodslist')[0];
+
+            //创建ul/li
+            var ul = document.createElement('ul')
+            ul.innerHTML = datalist.map(function(item) {
+                return '<li data-guid="' + item.guid + '">' +
+                    '<img src="' + item.imgurl + '">' +
+                    '<p>' + item.title + '</p>' +
+                    '<p class="price">原价：<del>' + item.price + '</del></p>' +
+                    '<p class="price">现价：<span>' + item.sale + '</span></p>' +
+                    '<p class="save">优惠：<span>' + (item.price - item.sale) + '</span></p>' +
+                    '<div class="add2cart">' +
+                    '<button>添加到购物车</button>' +
+                    '</div>' +
+                    '</li>';
+            }).join('');
+
+            goodslist.appendChild(ul)
+
+            var arr_goods = [];
+
+            //先查看当前购物车有无cookie;
+            var cookies = document.cookie;
+            if (cookies.length > 0) {
+                cookies = cookies.split('; ');
+                cookies.forEach(function(item) {
+                    var arr = item.split('=');
+                    if (arr[0] == 'cartlist') {
+                        arr_goods = JSON.parse(arr[1]);
+                    }
+                })
+            }
+
+
+            //添加到购物车
+            goodslist.onlick = function(e) {
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                if (target.parentNode.className === 'add2cart') {
+                    var currentLi = target.parentNode.parentNode;
+                    var guid = currentLi.getAttribute('data-guid');
+                    //如何判断cookie中是否存在当前商品
+                    for (var i = 0; i < arr_goods.length; i++) {
+                        if (arr_goods[i].guid === guid) {
+                            arr_goods[i].qty++;
+                            break;
+                        }
+                    }
+                    if (i === arr_goods.length) {
+                        //获取点击按钮对应的商品信息
+                        var goods = {
+                            guid: guid,
+                            title: currentLi.children[1].innerText,
+                            imgurl: currentLi.children[0].src,
+                            price: currentLi.chilren[2].chilren[0].innerText,
+                            sale: currentLi.children[3].children[0].innerText,
+                            qty: 1
+                        }
+                    }
+
+                    arr_goods.push(goods);
+
+                    //存入cookie
+                    document.cookie = 'cartlist=' + JSON.stringify(arr_goods);
+                    console.log(goods)
+                }
+
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 
+	<ul class="goods">
+		<li data-guid="g01">
+			<img src="images/shirt_1.jpg">
+			<p>短袖衬衣</p>
+			<p class="price">98.88</p>
+			<div class="add2cart">
+				<button>添加到购物车</button>
+			</div>
+		</li>
+		<li data-guid="g02">
+			<img src="images/shirt_2.jpg">
+			<p>短袖衬衣2</p>
+			<p class="price">88.88</p>
+			<div class="add2cart">
+				<button>添加到购物车</button>
+			</div>
+		</li>
+		<li data-guid="g03">
+			<img src="images/shirt_3.jpg">
+			<p>短袖衬衣3</p>
+			<p class="price">9.98</p>
+			<div class="add2cart">
+				<button>添加到购物车</button>
+			</div>
+		</li>
+		<li data-guid="g04">
+			<img src="images/shirt_4.jpg">
+			<p>短袖衬衣4</p>
+			<p class="price">8.88</p>
+			<div class="add2cart">
+				<button>添加到购物车</button>
+			</div>
+		</li>
+    </ul> -->
+    <div class="goodslist"></div>
+    <a href="car.html">去结算</a>
+</body>
+
+</html>

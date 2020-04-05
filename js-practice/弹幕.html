@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 800px;
+            margin: 0 auto;
+            padding-bottom: 10px;
+            background: #dfdfdf;
+        }
+        
+        #barrage {
+            position: relative;
+            height: 600px;
+            margin-bottom: 10px;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        #barrage .bar-item {
+            position: absolute;
+            left: 100%;
+            white-space: nowrap;
+        }
+        
+        #msg {
+            margin-left: 10px;
+            width: 400px;
+            height: 30px;
+            border: 1px solid #999;
+            border-right: none;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+        
+        #msg+button {
+            padding: 0 10px;
+            height: 30px;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="../common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = {
+                    //属性
+                    showArea: '#barrage',
+                    input: '#msg',
+                    btnSend: '.container button',
+                    // 初始化方法
+                    //     生成html结构
+                    //     绑定事件
+                    init: function() {
+                        this.showArea = document.querySelector('this.showArea');
+                        this.input = document.querySelector('this.input');
+                        this.btnSend = document.querySelector('this.btnSend');
+
+                        //点击发送
+                        this.btnSend.onclick = sendMsg.bind(this);
+                        //回车发送消息
+                        this.input.onkeyup = (e) => {
+                            if (e.keyCode === 13) {
+                                sendMsg().bind(this);
+                            }
+                        }
+
+                        function sendMsg() {
+                            //获取输入框的值
+                            var msg = thi.input.value;
+                            new Barrage(msg).init().move();
+
+                            //清空输入框
+                            this.input.value = '';
+                            //自动获取焦点
+                            this.input.focus();
+                        }
+                    }
+                }
+                //操作对象
+            container.init();
+            //弹幕信息对象
+            function Barrage(msg) {
+                //弹幕信息
+                this.msg = msg;
+                //随机颜色
+                this.color = randomColor();
+                //随机速度
+                this.speed = randomNumber(-10, -2);
+                //随机字体大小
+                this.fontSize = randomNumber(12, 30);
+                //随机位置
+                this.position = randomNumber(10, container.showArea.clientHeight - this.fontSize - 10);
+            }
+
+            //方法写到原型对象中
+            //初始化
+            //*生成html结构
+            //*绑定事件
+            Barrage.prototype.init = function() {
+                    //方法中的this同样指向实例
+                    var item = document.createElement('span');
+                    item.className = 'bar-item';
+                    item.innerHTML = this.msg;
+                    //定义样式
+                    item.style.color = this.color;
+                    item.style.fontSize = this.fontSize + 'px';
+                    item.style.top = this.position + 'px';
+                    //写入
+                    container.showArea.appendChild(item);
+                    this.ele = item;
+                    //实现链式调用的关键
+                    return this;
+                }
+                //移动
+            Barrage.prototype.move = function() {
+                    //这里的this是实例
+                    this.ele.timer = setInterval(() => {
+                        var current = this.ele.offsetLeft;
+                        if (current <= -this.ele.offsetWidth) {
+                            clearInterval(this.ele.timer);
+                            //移除DOM节点
+                            this.remove();
+                        }
+                        this.ele.style.left = current + this.speed + 'px';
+                    }, 20)
+                    return this;
+                }
+                //移除
+            Barrage.prototype.remove = function() {
+                this.ele.parentNode.removeChild(this.ele);
+                return this;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container"></div>
+    <div id="barrage"></div>
+    <input type="text" id="msg"><button>发送</button>
+</body>
+
+</html>

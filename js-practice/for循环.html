@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>for循环</title>
+</head>
+
+<body>
+    <div id="output"></div>
+    <script>
+        //打印100以内7的倍数
+        //var output = document.getElementById('output')
+        // var res = ''
+        // for (var num = 100; num > 0; num--) {
+        //     if (num % 7 === 0) {
+        //         res = res + num + ',';
+        //     }
+        // }
+        // output.innerHTML = res
+
+
+        //打印100以内7的倍数和带7的数
+        var output = document.getElementById('output')
+        var res = ''
+        for (var num = 100; num > 0; num--) {
+            var g = 100 % 7;
+            var s = parseInt(100 / 7);
+            if (g === 7 || s === 7 || num % 7 === 0) {
+                res += num + ',';
+            }
+        }
+        output.innerHTML = res;
+    </script>
+</body>
+
+</html>

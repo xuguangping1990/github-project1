@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        /*
+                                			分别计算出以上数组的最大值，最小值和平均值，并输出他们的索引
+                                			[10,2,8,55,32,18,9,11,30,16,19,20]
+                                		 */
+        var arr = [10, 2, 8, 55, 32, 18, 9, 11, 30, 16, 19, 20];
+        //假设最大、最小都为第一个
+        var maxIdx = 0;
+        var minIdx = 0;
+        var max = arr[maxIdx];
+        var min = arr[minIdx];
+
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                maxIdx = i;
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+                minIdx = i;
+            }
+        }
+        console.log('最大值:' + max + ',对应的索引:' + maxIdx)
+        console.log('最小值:' + min + ',对应的索引:' + minIdx)
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .carousel {
+            position: relative;
+            width: 810px;
+            height: 320px;
+            overflow: hidden;
+        }
+        
+        .carousel ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .carousel img {
+            display: block;
+        }
+        
+        .carousel>span {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            margin-top: -30px;
+            width: 30px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+        
+        .carousel>span.next {
+            left: auto;
+            right: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var carousel = document.querySelector('.carousel');
+            var ul = carousel.querySelector('ul');
+            var len = ul.children.lenth;
+            //默认显示第一张
+            var index = 0;
+            var outTimer = setInterval(autoPlay, 3000);
+            carousel.onmouseenter = () => {
+                clearInterval(outTimer);
+            }
+            carousel.onmouseleave = () => {
+                outTimer = setInterval(autoPlay, 3000);
+            }
+
+            //前后按钮
+            carousel.onclick = function(e) {
+                var target = e.target || e.srcElement;
+                if (target.classList.contains('prev')) {
+                    index--;
+                    showPic();
+                } else if (target.classList.contains('next')) {
+                    autoPlay();
+                }
+            }
+
+            //自动轮播
+            function autoPlay() {
+
+
+                index++;
+
+                showPic()
+
+            }
+
+
+            function showPic() {
+                if (index >= len) {
+                    index = 0;
+                } else if (index < 0) {
+                    indx = len - 1;
+                }
+                //计算目标值
+                var target = -index * 320;
+
+                clearInterval(carousel.timer);
+                carousel.timer = setInterval(() => {
+                    var current = ul.offsetTop;
+                    //计算速度
+                    var speed = (target - current) / 10;
+                    //避免速度为0
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    var top = current + speed;
+                    if (top === target) {
+                        clearInterval(carousel.timer);
+                    }
+                    ul.style.top = top + 'px';
+                })
+            }
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="carousel">
+        <ul>
+            <li><img src="img/001.jpg"></li>
+            <li><img src="img/002.jpg"></li>
+            <li><img src="img/003.jpg"></li>
+            <li><img src="img/004.jpg"></li>
+        </ul>
+        <span class="prev">&lt;</span>
+        <span class="next">&gt;</span>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>吸顶菜单</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        .search {
+            height: 60px;
+            line-height: 60px;
+            background-color: #58bc58;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .search input {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+        }
+        
+        .search button {
+            height: 30px;
+        }
+        
+        .main {
+            height: 800px;
+            background: #efefef;
+        }
+        
+        .footer {
+            height: 60px;
+            background: #333;
+        }
+        
+        .search.fixed {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var search = document.getElementById('search');
+            window.onscroll = function() {
+                var scrollTop = window.scrollY;
+                if (scrollTop > 60) {
+                    search.className = 'search fixed';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="search" id="search">
+        <input type="search"><button>搜索</button>
+    </div>
+    <div class="main"></div>
+    <div class="footer"></div>
+</body>
+
+</html>

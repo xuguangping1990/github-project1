@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>返回顶部的效果</title>
+    <style>
+        .toTop {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #333;
+            display: none;
+        }
+    </style>
+    <script>
+        for (var i = 1; i < 1000; i++) {
+            document.write('<p>我靠' + i + '声</p>')
+        }
+        window.onload = function() {
+            var toTop = document.getElementById('toTop');
+            toTop.onclick = function() {
+                var scrollTop = window.scrollY;
+                var timer = setInterval(function() {
+                    scrollTop -= 100;
+                    if (scrollTop <= 0) {
+                        clearInterval(timer);
+                        scrollTop = 0;
+                    }
+                    scrollTo(0, scrollTop)
+                }, 2)
+            }
+            window.onscroll = function() {
+                var scrollTop = window.scrollY;
+                if (scrollTop > 1000) {
+                    toTop.style.display = 'block';
+                } else {
+                    toTop.style.display = 'none';
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <a href="#" id="toTop" class="toTop">返回顶部</a>
+</body>
+
+</html>

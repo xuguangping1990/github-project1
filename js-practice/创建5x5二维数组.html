@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建5x5的二维数组</title>
+    <script>
+        // 通过循环按顺序为一个5×5的二维数组arr赋1到25的自然数，然后输出该数组的左下半三角的和。试编程。
+        var arr = [];
+        var num = 0;
+        for (var i = 0; i < 5; i++) {
+            var newArr = [];
+            for (var j = 0; j < 5; j++) {
+                num++;
+                newArr.push(num);
+            }
+            arr.push(newArr)
+        }
+        console.log(arr)
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

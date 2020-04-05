@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>猜数字游戏</p>
+    <input type="text" id="number">
+    <button onclick="guess()">猜数字</button>
+    <script>
+        var targetNumber = parseInt(Math.random() * 100) + 1
+        var num = document.getElementById('number')
+
+        function guess() {
+            var _num = num.value
+            if (_num > targetNumber) {
+                alert('大了')
+            }
+            if (_num < targetNumber) {
+                alert('小了')
+            }
+            if (_num == targetNumber) {
+                alert('恭喜您，中大奖')
+            }
+        }
+    </script>
+
+</body>
+
+</html>

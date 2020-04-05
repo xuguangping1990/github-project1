@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="common.js"></script>
+    <script>
+        window.onload = function() {
+            var btn = document.getElementById('btn');
+            var myBody = document.getElementById('myBody');
+            myBody.style.backgroundColor = randomColor()
+            btn.onclick = function() {
+                myBody.style.backgroundColor = randomColor()
+            }
+        }
+    </script>
+</head>
+
+<body id="myBody">
+    <button id="btn">随机颜色</button>
+</body>
+
+</html>

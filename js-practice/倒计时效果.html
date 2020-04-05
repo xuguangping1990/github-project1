@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒计时效果</title>
+    <script>
+        window.onload = function() {
+            var countDown = document.getElementById('countDown');
+            var img = document.getElementById('img');
+            var endDate = '2019-06-30  21:04:00';
+            var end = Date.parse(endDate);
+            showDown();
+            var timer = setInterval(showDown, 1000)
+
+            function showDown() {
+                var now = Date.now();
+                var offset = Math.floor((end - now) / 1000);
+                if (offset < 0) {
+                    img.src = 'img/btn_buy.jpg';
+                    clearInterval(timer);
+                    countDown.style.display = 'none';
+                }
+                var secLeft = offset % 60;
+                var minLeft = Math.floor(offset / 60) % 60;
+                var hourLeft = Math.floor(offset / 60 / 60) % 24;
+                var dayLeft = Math.floor(offset / 60 / 60 / 24);
+
+                secLeft = secLeft < 10 ? '0' + secLeft : secLeft;
+                minLeft = minLeft < 10 ? '0' + minLeft : minLeft;
+                hourLeft = hourLeft < 10 ? '0' + hourLeft : hourLeft;
+
+                countDown.innerHTML = '距离' + endDate + '还差' + dayLeft + '天' + hourLeft + '时' + minLeft + '分' + secLeft + '秒';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>倒计时</h1>
+    <div id="countDown"></div>
+    <img src="img/btn_buy0.jpg" id="img">
+</body>
+
+</html>

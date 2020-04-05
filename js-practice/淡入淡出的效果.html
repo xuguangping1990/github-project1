@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .fade {
+            width: 224px;
+            height: 288px;
+        }
+        
+        .fade ul {
+            position: relative;
+        }
+        
+        .fade ul li {
+            position: absolute;
+        }
+    </style>
+    <script src="common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fade = document.querySelector('.fade');
+            var lis = fade.querySelectorAll('li');
+            //图片的数量
+            var len = lis.length;
+            //当前图片索引
+            var index = 0;
+            //上一张图片索引
+            var lastIndex = 0;
+
+            //把除第一张以外的图片透明度改成0
+            for (var i = 0; i < len; i++) {
+                if (i === index) {
+                    continue;
+                }
+                lis[i].style.opacity = 0;
+            }
+
+            //3s切换图片
+            var timer = setInterval(() => {
+                index++;
+                showPic();
+            }, 3000);
+
+            //封装显示图片函数
+            function showPic() {
+                animate(lis[index], {
+                    opacity: 1
+                });
+                animate(lis[lastIndex], {
+                    opacity: 0
+                });
+                //更新上一张索引值
+                lastIndex = index;
+            }
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="fade">
+        <ul>
+            <li><img src="img/1.jpg" alt=""></li>
+            <li><img src="img/2.jpg" alt=""></li>
+            <li><img src="img/3.jpg" alt=""></li>
+            <li><img src="img/4.jpg" alt=""></li>
+            <li><img src="img/5.jpg" alt=""></li>
+            <li><img src="img/6.jpg" alt=""></li>
+            <li><img src="img/7.jpg" alt=""></li>
+            <li><img src="img/8.jpg" alt=""></li>
+            <li><img src="img/9.jpg" alt=""></li>
+        </ul>
+    </div>
+</body>
+
+</html>

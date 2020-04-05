@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽效果</title>
+    <style>
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100px;
+            background-color: #58bc58;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var box = document.getElementById('box');
+            box.onmousedown = function(e) {
+                e = e || window.event;
+                var ox = e.clientX - box.offsetLeft;
+                var oy = e.clientY - box.offsetTop;
+                document.onmousemove = function(evt) {
+                    box.style.left = evt.clientX - ox + 'px';
+                    box.style.top = evt.clientY - oy + 'px';
+                }
+            }
+            document.onmouseup = function() {
+                box.onmousemove = null;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+
+</html>

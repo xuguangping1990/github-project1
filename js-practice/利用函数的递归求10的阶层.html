@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>利用函数的递归求10的阶层</title>
+    <script>
+        function factorial(n) {
+            if (n === 1) {
+                return 1;
+            }
+            return n * factorial(--n);
+        }
+        factorial(10);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

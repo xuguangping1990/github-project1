@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .nian {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="year"><button onclick="checkrn()">判断闰年</button>
+    <div id="output"></div>
+    <script>
+        var year = document.getElementById('year')
+        var output = document.getElementById('output')
+        year.value = '给我个闰年'
+
+        function checkrn() {
+            var _year = year.value
+            if ((_year % 4 === 0 && _year % 100 !== 0) || _year % 400 === 0) {
+                output.innerHTML = '闰年'
+            } else if (isNaN(_year)) {
+                output.innerHTML = '<span class="nian">请输入正确的年份<span>'
+            } else {
+                output.innerHTML = '平年'
+            }
+        }
+    </script>
+</body>
+
+</html>

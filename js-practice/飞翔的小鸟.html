@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .left {
+            transform: rotateY(180deg);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var bird = document.querySelector('img');
+            var speed = 5;
+            var timer = setInterval(() => {
+                var left = bird.offsetLeft;
+                left += speed;
+                if (left >= window.innerWidth - bird.offsetWidth || left < 0) {
+                    speed *= -1;
+                    if (speed < 0) {
+                        bird.classList.add('left');
+                    } else {
+                        bird.classList.remove('left');
+                    }
+                }
+                bird.style.left = left + 'px';
+            }, 20)
+        })
+    </script>
+</head>
+
+<body>
+    <img src="img/bird.gif">
+</body>
+
+</html>

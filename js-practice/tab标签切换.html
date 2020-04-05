@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab标签切换</title>
+    <style>
+        .tab {
+            border: 1px solid #ddd
+        }
+        
+        .tab header {
+            border-bottom: 2px solid #ddd;
+            overflow: hidden;
+        }
+        
+        .tab header span {
+            padding: 0 15px;
+            line-height: 30px;
+            float: left;
+            border-right: 1px solid #ddd;
+        }
+        
+        .tab header span.active {
+            background-color: #fc0;
+        }
+        
+        .tab .content {
+            min-height: 100px;
+            padding: 15px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            //获取元素
+            var tab = document.getElementsByClassName('tab')[0];
+            var header = tab.children[0];
+            var content = tab.children[1];
+
+            var tabItem = header.children;
+            var contentItem = content.children;
+
+            //初始化状态
+            //给第一个tab加高亮
+            //隐藏除第一个以外的内容
+            var index = 0;
+            tabItem[index].className = 'active';
+            for (var i = 0; i < contentItem.length; i++) {
+                if (i != index) {
+                    contentItem[i].style.display = 'none';
+                }
+                //tabItem[i].setAttribute('idx', i);
+                tabItem[i].idx = i;
+                tabItem[i].onclick = function() {
+                    //先隐藏所有，再显示当前
+                    //先去除所有高亮，再显示当前高亮
+                    //var idx = this.getAttribute('idx');
+                    var idx = this.idx
+                    for (var i = 0; i < tabItem.length; i++) {
+                        tabItem[i].className = '';
+                        contentItem[i].style.display = 'none';
+                    }
+                    tabItem[idx].className = 'active';
+                    contentItem[idx].style.display = 'block';
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="tab">
+        <header>
+            <span>tab1</span>
+            <span>tab2</span>
+            <span>tab3</span>
+        </header>
+        <div class="content">
+            <div>content1</div>
+            <div>content2</div>
+            <div>content3</div>
+        </div>
+    </div>
+</body>
+
+</html>

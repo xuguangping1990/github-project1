@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: #16283b;
+            overflow: hidden;
+        }
+        
+        img {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 100px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var rocket = document.querySelector('img');
+            var speed = 0;
+            var timer = setInterval(() => {
+                var top = rocket.offsetTop;
+                if (top >= window.innerHeiht / 2) {
+                    top -= speed++;
+                } else {
+                    top -= speed--;
+                }
+                if (speed == 0) {
+                    clearInterval(timer);
+                }
+
+                rocket.style.top = top + 'px';
+            })
+        }, 30)
+    </script>
+</head>
+
+<body>
+    <img src="img/rocket.gif">
+</body>
+
+
+</html>

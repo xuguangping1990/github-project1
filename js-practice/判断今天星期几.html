@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断今天星期几</title>
+    <script>
+        window.onload = function() {
+            var now = new Date();
+            var week = now.getDay();
+            console.log(week);
+            var pig = document.getElementById('pig');
+            pig.src = 'img/mood/' + week + '.png';
+        }
+    </script>
+</head>
+
+<body>
+    <img src="img/mood/0.png" id="pig">
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>封装一个函数afterDate(date,n)，得到日期date的n天后的日期</title>
+    <script>
+        function afterDate(date, n) {
+            var currentDate = new Date(date);
+            var d = currentDate.getDate();
+            currentDate.setDate(d + n);
+
+            var year = currentDate.getFullYear();
+            var month = currentDate.getMonth() + 1;
+            var date = currentDate.getDate();
+            return year + '-' + month + '-' + date;
+
+        }
+        console.log(afterDate('2019-10-10', 50))
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

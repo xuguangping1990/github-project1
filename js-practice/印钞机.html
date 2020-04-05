@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>印钞机</title>
+    <style>
+        .rmb img {
+            width: 200px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var btn = document.getElementById('btn');
+            var rmb = document.getElementsByClassName('rmb')[0];
+            var nrmb = document.getElementsByClassName('rmb')[1];
+
+            //点击复制
+            btn.onclick = function() {
+                    var newRmb = rmb.cloneNode(true);
+                    document.body.appendChild(newRmb);
+                }
+                //移动现有元素
+            nrmb.onclick = function() {
+                document.body.appendChild(nrmb);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <button id="btn">印钞机</button>
+    <div class="rmb">
+        <img src="img/100rmb.jpg">
+    </div>
+    <div class="rmb">
+        <img src="img/rmb100.jpg">
+    </div>
+</body>
+
+</html>

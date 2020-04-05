@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新闻提示信息</title>
+    <style>
+        /*#box{width:0;height:0;border:30px solid transparent;border-bottom-color:#f60;}*/
+        
+        .details {
+            display: none;
+            position: absolute;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #f60;
+            background-color: #ffc;
+        }
+        
+        .details::before,
+        .details::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 15px;
+            border: 10px solid transparent;
+            border-bottom-color: #f60;
+        }
+        
+        .details::after {
+            top: -18px;
+            border-bottom-color: #ffc;
+        }
+        /*#box{width:0;height:0;border:50px solid transparent;border-bottom-color:#f00;}*/
+    </style>
+    <script>
+        window.onload = function() {
+            var newslist = document.getElementsByClassName('newslist')[0];
+            var details = document.getElementsByClassName('details')[0];
+            var links = newslist.getElementsByTagName('a');
+
+            for (var i = 0; i < links.length; i++) {
+                //移入onmouseover
+                links[i].onmouseover = function() {
+                        details.style.display = 'block';
+                        details.innerHTML = this.title;
+                    }
+                    //移出onmouseout
+                links[i].onmouseout = function() {
+                    details.style.display = 'none';
+                }
+
+                //跟随光标
+                links[i].onmousemove = function(event) {
+                    var left = event.clentX - 25;
+                    var top = event.clientY + 35;
+
+                    details.style.left = left + 'px';
+                    details.style.top = top + 'px';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>新闻提示信息</h1>
+    <ul class="newslist">
+        <li><a href="#" title="小明由于调戏女老师再次被滚粗教室">教室文化</a></li>
+        <li><a href="#" title="iPhone10发布,屏幕高度亮瞎了所有小伙伴">iphone10发布会</a></li>
+        <li><a href="#" title="为了弘扬乐于助人的精神，中国人大开会决定授予老王“中国好邻居”称号">关于老王</a></li>
+    </ul>
+    <div class="details"></div>
+    <!-- <div id="box"></div> -->
+</body>
+
+</html>

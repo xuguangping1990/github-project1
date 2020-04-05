@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机点名程序（简单版）</title>
+    <script>
+        window.onload = function() {
+            var namelist = ['江伟', '骆飞平', '雷皓', '刘韵', '邓燕婷', '谭健青', '蒋松谕', '杨培钦', '吴坤明', '卢思', '徐啸', ' 刘勉', '陈文贵', '周洲', '陈国伟', '梁永豪', '梁么', '陈嘉豪', '王文健', '李京辉', '兰涛', '陈宏涛', '刘美', '毛继陆', '刘盛伟', ' 潘然然', '林知灏', '梁嫚嫚', '徐广平', '黄伟斌', ' 陈俊明'];
+            var currentName = document.getElementById('currentName');
+            var btn = document.getElementById('btn');
+
+            function getName() {
+                var idx = parseInt(Math.random() * 31);
+                var name = namelist[idx];
+                currentName.value = name;
+            }
+            getName();
+            btn.onclick = getName;
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="currentName">
+    <button id="btn">随机点名</button>
+</body>
+
+</html>

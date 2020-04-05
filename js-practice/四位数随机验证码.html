@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>四位数随机验证码</title>
+    <script>
+        window.onload = function() {
+            //1）获取元素
+            var vcode = document.getElementById('vcode');
+            var btnChange = document.getElementById('btnChange');
+            var result = document.getElementById('result');
+            var code;
+            //2）给按钮绑定click事件
+            btnChange.onclick = function() {
+                    // code = parseInt(Math.random() * 10000);
+                    // if (code < 10) {
+                    //     code = '000' + code;
+                    // } else if (code < 100) {
+                    //     code = '00' + code;
+                    // } else if (code < 1000) {
+                    //     code = '0' + code;
+                    // }
+                    randomCode()
+                    result.innerHTML = code;
+                }
+                //3）失去焦点时判断验证码输入是否正确
+            vcode.onchange = function() {
+                var _input = vcode.value;
+                if (_input == code) {
+                    vcode.style.color = '#0c0';
+                    vcode.style.border = '1px solid #0c0';
+                } else {
+                    vcode.style.color = '1px solid #f00';
+                }
+            }
+
+            function randomCode() {
+                code = parseInt(Math.random() * 10000);
+                if (code < 10) {
+                    code = '000' + code;
+                } else if (code < 100) {
+                    code = '00' + code;
+                } else if (code < 1000) {
+                    code = '0' + code;
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="vcode">
+    <button id="btnChange">获取随机验证码</button>
+    <span id="result"></span>
+</body>
+
+</html>

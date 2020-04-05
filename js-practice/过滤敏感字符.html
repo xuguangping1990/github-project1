@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤敏感字符</title>
+    <style>
+        .container {
+            width: 600px;
+            margin: 0 auto
+        }
+        
+        #msg {
+            width: 600px;
+            height: 100px;
+            display: block;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var msglist = document.getElementById('msglist');
+            var msg = document.getElementById('msg');
+            var btn = document.getElementById('btn');
+            var arr_msg = [];
+            var mingan = "操,狗日的,fuck,去你妹的".split(',');
+            console.log(mingan)
+            btn.onclick = function() {
+                var _msg = msg.value.trim();
+                if (_msg === '') {
+                    return;
+                }
+                mingan.forEach(function(item) {
+                    var reg = new RegExp(item, 'gi')
+                    _msg = _msg.replace(reg, '**');
+                })
+                arr_msg.push(_msg);
+                msglist.innerHTML = render();
+                msg.value = '';
+                msg.focus();
+            }
+
+            function render() {
+                var res = arr_msg.map(function(item) {
+                    return '<li>' + item + '</li>'
+                }).join('');
+                return res;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>过滤敏感字符</h1>
+        <ul id="msglist">
+        </ul>
+        <textarea id="msg"></textarea>
+        <button id="btn">提交</button>
+    </div>
+</body>
+
+</html>

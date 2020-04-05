@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组的排序_冒泡排序</title>
+    <script>
+        var arr = [10, 2, 8, 55, 32, 18, 9, 11, 30, 16, 19, 20];
+        var times = 0;
+        for (var j = 0; j < arr.length - 1; j++) {
+            for (var i = 0; i < arr.length - j - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    var temp = arr[i + 1];
+                    arr[i + 1] = arr[i];
+                    arr[i] = temp;
+                }
+                times++;
+
+            }
+
+        }
+        var number = 20190510;
+        var num = number.toString(2)
+        console.log(num)
+        console.log(times, arr)
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取url中的参数</title>
+    <script>
+        //  https://www.baidu.com/s?name=avery&age=20&sex=male , 取出name, age和sex的值
+        var str = 'https://www.baidu.com/s?name=avery&age=20&sex=male';
+        var idx = str.indexOf('?');
+        var params = str.slice(idx + 1);
+        var arr_params = params.split('&');
+        var obj = {};
+        arr_params.forEach(function(item) {
+            var arr = item.split('=');
+            obj[arr[0]] = arr[1];
+        })
+        console.log(obj);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

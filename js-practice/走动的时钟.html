@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>走动的时钟</title>
+    <script>
+        window.onload = function() {
+            function showTime() {
+                //年月日
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var date = now.getDate();
+                //时分秒毫秒
+                var h = now.getHours();
+                var m = now.getMinutes();
+                var s = now.getSeconds();
+                var ms = now.getMilliseconds();
+                //星期
+                var week = now.getDay();
+                var weekStr = '日一二三四五六';
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                if (date < 10) {
+                    date = '0' + date;
+                }
+                if (h < 10) {
+                    h = '0' + h;
+                }
+                if (m < 10) {
+                    m = '0' + m;
+                }
+                // if (s < 10) {
+                //     s = '0' + s;
+                // }
+
+                //三元运算
+                s = s < 10 ? '0' + s : s;
+                var time = year + '-' + month + '-' + date + ' ' + h + ':' + m + ':' + s + ':' + ms + ' ' + '星期' + weekStr[week];
+                var body = document.getElementById('body');
+                document.body.innerHTML = time;
+            }
+            showTime();
+            setInterval(showTime, 100)
+
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

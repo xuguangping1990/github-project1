@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #datalist {
+            width: 800px;
+            margin: 50px auto;
+        }
+        
+        #datalist img {
+            width: 120px;
+        }
+        
+        #datalist li {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ddd;
+        }
+        
+        .price span {
+            color: #f00;
+        }
+        
+        .price span::before {
+            content: '￥'
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var arr = [{
+                name: '苹果iphone7 plus',
+                price: 4998,
+                color: '土豪金',
+                memory: 64,
+                imgurl: 'img/ip7.jpg'
+            }, {
+                name: 'sansumg爆炸7',
+                price: 998,
+                color: '白色',
+                memory: 32,
+                imgurl: 'img/note7.jpg'
+            }, {
+                name: '荣耀7',
+                price: 1999,
+                color: '白色',
+                memory: 16,
+                imgurl: 'img/honor7.jpg'
+            }];
+            var datalist = document.getElementById('datalist');
+            var str = '<ul>'
+            for (var i = 0; i < arr.length; i++) {
+                // arr[i] //=> Object：{name,price,color,imgurl,memory}
+                str += '<li><a href="#"><img src="' + arr[i].imgurl + '"></a><h4>' + arr[i].name + '</h4><p class="price">价格：<span>' + arr[i].price.toFixed(2) + '</span></p><p class="color">颜色：<span>' + arr[i].color + '</span></p><p class="memory">内存容量：<span>' + arr[i].memory + '</span></p></li>';
+            }
+
+            // 闭合ul
+            str += '</ul>';
+
+
+            // 写入页面
+            datalist.innerHTML = str;
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>热门手机排行榜</h1>
+    <div id="datalist">
+        <!-- <ul>
+			<li></li>
+		</ul> -->
+    </div>
+</body>
+
+</html>
